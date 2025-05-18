@@ -1,0 +1,51 @@
+
+plugins {
+    id 'java'
+    id 'application'
+    id 'jacoco'
+}
+
+group 'edu.sydney'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.google.code.gson:gson:2.10.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+application {
+    mainClassName = 'citadels.Main'
+}
+
+tasks.named('run', JavaExec) {
+    // 让 Gradle run 时把 IDE/终端的输入流传进去
+    standardInput = System.in
+}
+
+run {
+    standardInput = System.in   // ★ 让 Gradle run 真正连通控制台
+}
+
+jar {
+    manifest {
+        attributes(
+            'Main-Class': 'citadels.Main'
+        )
+    }
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
